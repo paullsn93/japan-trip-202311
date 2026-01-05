@@ -1,13 +1,21 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import { useEffect } from "react";
 
+// Get base path from environment or use default
+const getBasePath = () => {
+  const base = import.meta.env.BASE_URL || '/';
+  return base.endsWith('/') ? base.slice(0, -1) : base;
+};
 
 function Router() {
+  const [location] = useLocation();
+  
   return (
     <Switch>
       <Route path={"/"} component={Home} />
